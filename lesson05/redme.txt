@@ -1,3 +1,4 @@
 git - Version Control System - tools 
 github  - web service that works git tools
+git clone address
 
