@@ -104,7 +104,7 @@ let releaseTracks = [];
 
 for (let i = 0; i < playlist6.length; i++) {
   if (playlist6[i].releaseDate > 2015 && playlist6[i].price < 6) {
-    cheapestTracks.push(playlist6[i]);
+    releaseTracks.push(playlist6[i]);
   }
 }
 
