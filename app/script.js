@@ -5,12 +5,12 @@ runPlayer(playlist);
 
 function runPlayer(playlist) {
   const elementsWrapper = getElements();
-  
-  elementsWrapper.searchButton.addEventListener("click", () => {
-    const searchString = elementsWrapper.searchInput.value
-    refresh(elementsWrapper.resultDiv)
 
-    // extract this code to function 
+  elementsWrapper.searchButton.addEventListener("click", () => {
+    const searchString = elementsWrapper.searchInput.value;
+    refresh(elementsWrapper.resultDiv);
+
+    // extract this code to function
     // let foundTracks = filterTracks(playlist, searchString)
     let foundTracks = [];
 
@@ -28,25 +28,22 @@ function runPlayer(playlist) {
 
     // renderResult(foundTracks)
     renderResult(foundTracks, elementsWrapper);
-   
-    
   });
 }
 
-function refresh (el) {
-   el.innerHTML = ""
+function refresh(el) {
+  el.innerHTML = "";
 }
 
 function renderResult(tracks, wrapper) {
   if (tracks.length === 0) {
-    console.log("tracks not    found!");
+    console.log("tracks not found!");
     // elementWrapper.resultDiv.innerHTML...
     wrapper.resultDiv.innerHTML = "tracks not found!";
   } else {
-    console.log(tracks);
     for (let i = 0; i < tracks.length; i++) {
       const newValue =
-      wrapper.resultDiv.innerHTML +
+        wrapper.resultDiv.innerHTML +
         `<li><audio controls src='../music/${tracks[i].mp3FileName}'></audio>${tracks[i].name}</li>`;
       wrapper.resultDiv.innerHTML = newValue;
     }
@@ -62,7 +59,7 @@ function getPlaylist() {
     artist: "Pixies",
     fileUrl: "",
     price: 30,
-    addedToFavorite: true
+    addedToFavorite: true,
   };
 
   const track2 = {
@@ -71,7 +68,7 @@ function getPlaylist() {
     releaseDate: 2012,
     artist: "Gorillaz",
     price: 4,
-    addedToFavorite: false
+    addedToFavorite: false,
   };
 
   const track3 = {
@@ -81,6 +78,7 @@ function getPlaylist() {
     artist: "50cent",
     price: 3,
     addedToFavorite: true,
+    src: document.querySelector("#candy-shop"),
   };
   const track4 = {
     id: 3,
@@ -88,13 +86,12 @@ function getPlaylist() {
     releaseDate: 2020,
     artist: "50cent",
     price: 5,
-    addedToFavorite: true
+    addedToFavorite: true,
   };
 
   const playlist = [track1, track2, track3, track4];
   return playlist;
 }
-
 
 function getElements() {
   const searchButton = document.querySelector("#search-button");
@@ -110,5 +107,3 @@ function getElements() {
 
 // we want to add to favorite some track: we should button near the each track ADD TO FAVORITE
 // save favorite tracks inside local storage
-
-//
