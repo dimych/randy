@@ -18,7 +18,6 @@ function runPlayer(userbase) {
       }
     }
 
-    // renderResult(User)
     renderResult(User, elementsWrapper);
   });
 }
