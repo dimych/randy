@@ -44,7 +44,9 @@ function renderResult(tracks, wrapper) {
     for (let i = 0; i < tracks.length; i++) {
       const newValue =
         wrapper.resultDiv.innerHTML +
-        `<li><audio controls src='../music/${tracks[i].mp3FileName}'></audio>${tracks[i].name} 
+        `<li><audio controls src='../music/${tracks[i].mp3FileName}'></audio>${
+          tracks[i].name
+        } 
 ${getLIkeImageString(tracks[i])}
         </li>`;
       wrapper.resultDiv.innerHTML = newValue;
@@ -54,9 +56,9 @@ ${getLIkeImageString(tracks[i])}
 
 function getLIkeImageString(track) {
   if (track.addedToFavorite === true) {
-    return '<img src="../assets/images/pngtree-vector-like-icon-png-image_695769.jpg" alt="" style="width:50px;">'
+    return '<img src="../assets/images/thumbs-up.jpg" alt="" style="width:50px;">';
   } else {
-    return '<img src="../assets/images/940_like_icon.jpg" alt="" style="width:50px;">'
+    return '<img src="../assets/images/940_like_icon.jpg" alt="" style="width:50px;">';
   }
 }
 
@@ -70,7 +72,7 @@ function getPlaylist() {
     fileUrl: "",
     price: 30,
     addedToFavorite: true,
-    mp3FileName: 'CandyShop.mp3'
+    mp3FileName: "HereComesYourMan.mp3",
   };
 
   const track2 = {
@@ -80,7 +82,7 @@ function getPlaylist() {
     artist: "Gorillaz",
     price: 4,
     addedToFavorite: false,
-    mp3FileName: 'HereComesYourMan.mp3'
+    mp3FileName: "RhinstoneEyes.mp3",
   };
 
   const track3 = {
@@ -90,16 +92,16 @@ function getPlaylist() {
     artist: "50cent",
     price: 3,
     addedToFavorite: true,
-    mp3FileName: 'JustALilBit.mp3'
+    mp3FileName: "CandyShop.mp3",
   };
   const track4 = {
     id: 3,
-    name: "Candy shop 2",
+    name: "Just a lil bit",
     releaseDate: 2020,
     artist: "50cent",
     price: 5,
     addedToFavorite: true,
-    mp3FileName: 'RhinstoneEyes.mp3'
+    mp3FileName: "JustALilBit.mp3",
   };
 
   const playlist = [track1, track2, track3, track4];
