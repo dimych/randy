@@ -1,9 +1,9 @@
 "use strict";
 
 const playlist = getPlaylist();
-runPlayer(playlist);
+runApp(playlist);
 
-function runPlayer(playlist) {
+function runApp(playlist) {
   const elementsWrapper = getElements();
 
   elementsWrapper.searchButton.addEventListener("click", () => {

@@ -1,25 +1,41 @@
 "use strict";
 
-const userbase = getUser();
-runPlayer(userbase);
+const usersbase = getUsers();
+runApp(usersbase);
 
-function runPlayer(userbase) {
+function refreshUI() {
+  const elementsWrapper = getElements();
+  const searchString = elementsWrapper.searchInput.value;
+  refresh(elementsWrapper.resultDiv);
+
+  let users = [];
+
+  for (let i = 0; i < usersbase.length; i++) {
+    if (usersbase[i].name.startsWith(searchString)) {
+      users.push(usersbase[i]);
+    }
+  }
+
+  renderResult(users, elementsWrapper);
+  bindLikeEventHandlers();
+}
+
+function runApp(usersbase) {
   const elementsWrapper = getElements();
 
   elementsWrapper.searchButton.addEventListener("click", () => {
-    const searchString = elementsWrapper.searchInput.value;
-    refresh(elementsWrapper.resultDiv);
-
-    let User = [];
-
-    for (let i = 0; i < userbase.length; i++) {
-      if (userbase[i].name.startsWith(searchString)) {
-        User.push(userbase[i]);
-      }
-    }
-
-    renderResult(User, elementsWrapper);
+    refreshUI()
   });
+}
+
+function bindLikeEventHandlers() {
+  const likeButtons = document.querySelectorAll(".like, .unlike");
+  for (let i = 0; i < likeButtons.length; i++) {
+    likeButtons[i].addEventListener("click", () => {
+      usersbase[i].addedToFavorite = !usersbase[i].addedToFavorite
+      refreshUI();
+    });
+  }
 }
 
 function refresh(el) {
@@ -44,15 +60,15 @@ function renderResult(username, wrapper) {
   }
 }
 
-function getLIkeImageString(track) {
-  if (track.addedToFavorite === true) {
-    return '<img src="../assets/images/thumbs-up.jpg" alt="" style="width:50px;">';
+function getLIkeImageString(user) {
+  if (user.addedToFavorite === true) {
+    return '<img src="../assets/images/thumbs-up.jpg" alt="" style="width:50px;" class="unlike">';
   } else {
-    return '<img src="../assets/images/940_like_icon.jpg" alt="" style="width:50px;">';
+    return '<img src="../assets/images/940_like_icon.jpg" alt="" style="width:50px;" class="like">';
   }
 }
 
-function getUser() {
+function getUsers() {
   const user1 = {
     id: 1,
     name: "Randy",
