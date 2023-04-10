@@ -3,31 +3,30 @@
 const playlist = getPlaylist();
 runApp(playlist);
 
+function refreshUI() {
+  const elementsWrapper = getElements();
+  const searchString = elementsWrapper.searchInput.value;
+  refresh(elementsWrapper.resultDiv);
+
+  let foundTracks = [];
+
+  for (let i = 0; i < playlist.length; i++) {
+    if (
+      playlist[i].name.includes(searchString) ||
+      playlist[i].artist.includes(searchString)
+    ) {
+      foundTracks.push(playlist[i]);
+    }
+  }
+  renderResult(foundTracks, elementsWrapper);
+  bindLikeEventHandlers();
+}
+
 function runApp(playlist) {
   const elementsWrapper = getElements();
 
   elementsWrapper.searchButton.addEventListener("click", () => {
-    const searchString = elementsWrapper.searchInput.value;
-    refresh(elementsWrapper.resultDiv);
-
-    // extract this code to function
-    // let foundTracks = filterTracks(playlist, searchString)
-    let foundTracks = [];
-
-    for (let i = 0; i < playlist.length; i++) {
-      // if (isTrackFitTheCondition(playlist[i]))
-      if (
-        playlist[i].name.includes(searchString) ||
-        playlist[i].artist.includes(searchString)
-      ) {
-        //if (playlist[i].name.includes(searchString)) {
-        foundTracks.push(playlist[i]);
-        // console.log(playlist[i])
-      }
-    }
-
-    // renderResult(foundTracks)
-    renderResult(foundTracks, elementsWrapper);
+    refreshUI();
   });
 }
 
@@ -38,7 +37,6 @@ function refresh(el) {
 function renderResult(tracks, wrapper) {
   if (tracks.length === 0) {
     console.log("tracks not found!");
-    // elementWrapper.resultDiv.innerHTML...
     wrapper.resultDiv.innerHTML = "tracks not found!";
   } else {
     for (let i = 0; i < tracks.length; i++) {
@@ -54,22 +52,30 @@ ${getLIkeImageString(tracks[i])}
   }
 }
 
-function getLIkeImageString(track) {
-  if (track.addedToFavorite === true) {
-    return '<img src="../assets/images/thumbs-up.jpg" alt="" style="width:50px;">';
+function getLIkeImageString(tracks) {
+  if (tracks.addedToFavorite === true) {
+    return '<img src="../assets/images/thumbs-up.jpg" alt="" style="width:50px;" class="unlike">';
   } else {
-    return '<img src="../assets/images/940_like_icon.jpg" alt="" style="width:50px;">';
+    return '<img src="../assets/images/940_like_icon.jpg" alt="" style="width:50px;" class="like">';
   }
 }
 
-// todo: put mp3 file name to all tracks
+function bindLikeEventHandlers() {
+  const likeButtons = document.querySelectorAll(".like, .unlike");
+  for (let i = 0; i < likeButtons.length; i++) {
+    likeButtons[i].addEventListener("click", () => {
+      playlist[i].addedToFavorite = !playlist[i].addedToFavorite;
+      runApp();
+    });
+  }
+}
+
 function getPlaylist() {
   const track1 = {
     id: 1,
     name: "Here comes your man",
     releaseDate: 2015,
     artist: "Pixies",
-    fileUrl: "",
     price: 30,
     addedToFavorite: true,
     mp3FileName: "HereComesYourMan.mp3",
@@ -119,6 +125,3 @@ function getElements() {
   };
   return wrapper;
 }
-
-// we want to add to favorite some track: we should button near the each track ADD TO FAVORITE
-// save favorite tracks inside local storage
