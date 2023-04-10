@@ -65,7 +65,7 @@ function bindLikeEventHandlers() {
   for (let i = 0; i < likeButtons.length; i++) {
     likeButtons[i].addEventListener("click", () => {
       playlist[i].addedToFavorite = !playlist[i].addedToFavorite;
-      runApp();
+      refreshUI();
     });
   }
 }
