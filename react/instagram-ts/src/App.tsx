@@ -4,6 +4,15 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 
+type UserType = {
+  id: number;
+  name: string;
+  likes: number;
+  dateOfBirth: number;
+  addedToFavorite: boolean;
+  photoName: string;
+};
+
 function getUsers() {
   const user1 = {
     id: 1,
@@ -41,7 +50,7 @@ function getUsers() {
     photoName: "pexels-anjana.jpg",
   };
 
-  const userbase = [user1, user2, user3, user4];
+  const userbase: UserType[] = [user1, user2, user3, user4];
   return userbase;
 }
 
@@ -49,9 +58,7 @@ function App() {
 
  const [users] = useState(getUsers)
 
- const photosElements = users.map(user =>  <Photo 
-  src={user.photoName}
-  likes={user.likes} />)
+ const photosElements = users.map(user =>  <Photo src={user.photoName} likes={user.likes} />)
  //const photosElements = [<Photo />, <Photo />, <Photo />, <Photo />]
 
 
@@ -66,6 +73,7 @@ function App() {
       photos2Elements
      }
 
+
     
     </div>
   )
@@ -74,7 +82,13 @@ function App() {
 
 // component
 //{ src, likes }
-function Photo(props) {
+
+type PhotoPropsType = {
+  src: string
+  likes: number
+}
+
+function Photo(props: PhotoPropsType) {
 
  // const [count, setCount] = useState(0) // hook function
 
@@ -86,8 +100,13 @@ function Photo(props) {
   </div>
 }
 
-// { data }
-function Photo2(props) {
+type Photo2 = {
+  /**
+   * data - is user object. photoName and likes will be used from this object 
+   */
+  data: UserType
+}
+function Photo2(props: Photo2) {
 
   // const [count, setCount] = useState(0) // hook function
  
@@ -99,7 +118,10 @@ function Photo2(props) {
    </div>
  }
  
- function Like(props) {
+ type LikePropsType = {
+  user: UserType
+ }
+ function Like(props: LikePropsType) {
   if (props.user.addedToFavorite === true) {
     return <img src="images/thumbs-up.jpg"  style={ {width:'50px' }  }  />
   } else {

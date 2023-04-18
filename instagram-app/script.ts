@@ -1,6 +1,11 @@
 "use strict";
 
+
+const sum  = (a: number, b: number) => a + b
+
 const usersbase = getUsers();
+
+
 runApp(usersbase);
 
 function refreshUI() {
@@ -8,7 +13,7 @@ function refreshUI() {
   const searchString = elementsWrapper.searchInput.value;
   refresh(elementsWrapper.resultDiv);
 
-  let users = [];
+  let users: User[] = [];
 
   for (let i = 0; i < usersbase.length; i++) {
     if (usersbase[i].name.startsWith(searchString)) {
@@ -68,6 +73,16 @@ function getLIkeImageString(user) {
   }
 }
 
+
+type User = {
+  id: number;
+  name: string;
+  likes: number;
+  dateOfBirth: number;
+  addedToFavorite: boolean;
+  photoName: string;
+};
+
 function getUsers() {
   const user1 = {
     id: 1,
@@ -102,17 +117,17 @@ function getUsers() {
     likes: 532,
     dateOfBirth: 1998,
     addedToFavorite: true,
-    photoName: "pexels-anjana.jpg",
+    photoName: "pexels-anjana.jpg"
   };
 
-  const userbase = [user1, user2, user3, user4];
+  const userbase: User[]  = [user1, user2, user3, user4];
   return userbase;
 }
 
 function getElements() {
-  const searchButton = document.querySelector("#search-button");
-  const searchInput = document.querySelector("#search-string");
-  const resultDiv = document.querySelector("#result-div");
+  const searchButton: HTMLButtonElement = document.querySelector("#search-button")!;
+  const searchInput: HTMLInputElement = document.querySelector("#search-string")!;
+  const resultDiv: HTMLDivElement = document.querySelector("#result-div")!;
   const wrapper = {
     searchButton: searchButton,
     searchInput: searchInput,
