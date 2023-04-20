@@ -38,3 +38,4 @@ return <div>{props.name} {props.price}
 //   <img src={ "images/" + props.img }/>
 //   </div>
 //   }
+    
