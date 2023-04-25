@@ -1,6 +1,3 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 type TrackType = {
@@ -57,4 +54,8 @@ function getPlaylist() {
   return playlist;
 }
 
-function app() {}
+export default function App() {
+
+  return <div>APP</div>
+}
+
