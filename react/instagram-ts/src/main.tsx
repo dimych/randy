@@ -4,6 +4,7 @@ import App from './App'
 import './index.css'
 import  {Shop}  from './components/shop/Shop'
 import { Barbershop } from './components/barbershop/Barbershop'
+import { Todolist } from './components/todolist/Todolist'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-.render( <Barbershop />)
+.render( <Todolist />)
