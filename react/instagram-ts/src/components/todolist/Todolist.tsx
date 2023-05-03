@@ -1,49 +1,56 @@
 import { useState } from "react";
+import { Task } from "./Task";
+import { TaskType } from "./types";
 
-type TaskType = {
-  id: number;
-  title: string;
-};
 
-export const Todolist = (props: any) => {
+
+export const Todolist = () => {
   const [tasks, setTasks] = useState<TaskType[]>([
     { id: 1, title: "breakfast" },
     { id: 2, title: "learn js" },
   ]);
 
+  const deleteTask = (taskId: number) => {
+    const tasksWithoutDeletedTask: TaskType[] = tasks.filter(
+      (t) => t.id !== taskId
+    );
+    //tasks.push( {id: 3, title: 'new'})
+    setTasks(tasksWithoutDeletedTask);
+  };
+
+  const addTask = () => {
+    const tasksWithNewTask = [...tasks, {id: Math.random(), title: 'new'}];
+    //tasks.push( )
+    setTasks(tasksWithNewTask);
+  };
+
   return (
     <div>
-      <button
-        onClick={() => {
-          const tasksWithNewTask = [...tasks];
-          //tasks.push( {id: 3, title: 'new'})
-          setTasks(tasksWithNewTask);
-        }}
-      >
-        +
-      </button>
-
+      <AddForm addCallback={() => {
+        addTask()
+        console.log('click')
+        }} />
       <ul>
         {tasks.map((task) => (
-          <li>
-            <button
-              onClick={() => {
-                const tasksWithoutDeletedTask: TaskType[] = tasks.filter(
-                  (t) => t.id !== task.id
-                );
-                //tasks.push( {id: 3, title: 'new'})
-                setTasks(tasksWithoutDeletedTask);
-              }}
-            >
-              -
-            </button>
-
-            <b>{task.title}</b>
-          </li>
+          <Task key={task.id} task={task} deleteTask={deleteTask} />
         ))}
       </ul>
     </div>
   );
 };
 
-// map, filter, props, closure*
+type AddFormPropsType = {
+  addCallback: () => void
+}
+const AddForm = (props: AddFormPropsType) => {
+  return <div>
+    <button onClick={() => props.addCallback() }>+</button>
+  </div>
+}
+
+
+
+
+
+
+// map, filter, props (data, callbacks), closure*
