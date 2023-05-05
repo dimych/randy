@@ -6,33 +6,39 @@ import { TaskType } from "./types";
 
 export const Todolist = () => {
   const [tasks, setTasks] = useState<TaskType[]>([
-    { id: 1, title: "breakfast" },
-    { id: 2, title: "learn js" },
+    { id: 1, title: "breakfast", done: false },
+    { id: 2, title: "learn js", done: true },
   ]);
 
   const deleteTask = (taskId: number) => {
     const tasksWithoutDeletedTask: TaskType[] = tasks.filter(
       (t) => t.id !== taskId
     );
-    //tasks.push( {id: 3, title: 'new'})
+
+    setTasks(tasksWithoutDeletedTask);
+  };
+  const onDoneChange = (taskId: number, done: boolean) => {
+    const tasksWithoutDeletedTask: TaskType[] = tasks.filter(
+      (t) => t.id !== taskId
+    );
+    
     setTasks(tasksWithoutDeletedTask);
   };
 
-  const addTask = () => {
-    const tasksWithNewTask = [...tasks, {id: Math.random(), title: 'new'}];
+  const addTask = (title: string) => {
+    const tasksWithNewTask = [...tasks, {id: Math.random(), title: title, done: false}];
     //tasks.push( )
     setTasks(tasksWithNewTask);
   };
 
   return (
     <div>
-      <AddForm addCallback={() => {
-        addTask()
-        console.log('click')
-        }} />
+      <AddForm addCallback={addTask} />
       <ul>
         {tasks.map((task) => (
-          <Task key={task.id} task={task} deleteTask={deleteTask} />
+          <Task key={task.id} task={task}
+           deleteTask={deleteTask}
+           onDoneChange={onDoneChange} />
         ))}
       </ul>
     </div>
@@ -40,11 +46,16 @@ export const Todolist = () => {
 };
 
 type AddFormPropsType = {
-  addCallback: () => void
+  addCallback: (title: string) => void
 }
 const AddForm = (props: AddFormPropsType) => {
+  const [title, setTitle] = useState("")
+
   return <div>
-    <button onClick={() => props.addCallback() }>+</button>
+    <input value={title} onChange={(event) => {
+      setTitle(event.currentTarget.value)
+    }} />
+    <button onClick={() => props.addCallback(title) }>+</button>
   </div>
 }
 
