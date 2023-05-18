@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Task } from "./Task";
 import { TaskType } from "./types";
 
-
-
 export const Todolist = () => {
   const [tasks, setTasks] = useState<TaskType[]>([
     { id: 1, title: "breakfast", done: false },
@@ -21,12 +19,15 @@ export const Todolist = () => {
     const tasksWithoutDeletedTask: TaskType[] = tasks.filter(
       (t) => t.id !== taskId
     );
-    
+
     setTasks(tasksWithoutDeletedTask);
   };
 
   const addTask = (title: string) => {
-    const tasksWithNewTask = [...tasks, {id: Math.random(), title: title, done: false}];
+    const tasksWithNewTask = [
+      ...tasks,
+      { id: Math.random(), title: title, done: false },
+    ];
     //tasks.push( )
     setTasks(tasksWithNewTask);
   };
@@ -36,9 +37,12 @@ export const Todolist = () => {
       <AddForm addCallback={addTask} />
       <ul>
         {tasks.map((task) => (
-          <Task key={task.id} task={task}
-           deleteTask={deleteTask}
-           onDoneChange={onDoneChange} />
+          <Task
+            key={task.id}
+            task={task}
+            deleteTask={deleteTask}
+            onDoneChange={onDoneChange}
+          />
         ))}
       </ul>
     </div>
@@ -46,22 +50,29 @@ export const Todolist = () => {
 };
 
 type AddFormPropsType = {
-  addCallback: (title: string) => void
-}
+  addCallback: (title: string) => void;
+};
 const AddForm = (props: AddFormPropsType) => {
-  const [title, setTitle] = useState("")
+  const [title, setTitle] = useState("");
 
-  return <div>
-    <input value={title} onChange={(event) => {
-      setTitle(event.currentTarget.value)
-    }} />
-    <button onClick={() => props.addCallback(title) }>+</button>
-  </div>
-}
+  return (
+    <div>
+      <input
+        value={title}
+        onChange={(event) => {
+          setTitle(event.currentTarget.value);
+        }}
+      />
+      <button onClick={() => props.addCallback(title)}>+</button>
+    </div>
+  );
+};
 
+// export const ImmutableExample = () => {
+// const [title, setTitle] useState()
 
+//   return <button>press</button>;
 
-
-
+// };
 
 // map, filter, props (data, callbacks), closure*
