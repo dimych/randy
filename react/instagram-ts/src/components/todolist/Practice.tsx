@@ -1,19 +1,14 @@
-import * as React from "react";
+import { useState } from "react";
 
 export const Practice = () => {
-  const [count, setCount] = React.useState(0);
-
-  const handleClick = () => {
-    setCount(count + 1);
-  };
+  const [count, setCount] = useState(0);
 
   return (
     <div>
-      <button type="button" onClick={handleClick}>
-        Click Me
+      <button type="button" onClick={() => setCount(count + 1)}>
+        click me
       </button>
-
-      {count}
+      <h1>{count}</h1>
     </div>
   );
 };
