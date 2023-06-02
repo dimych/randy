@@ -24,7 +24,6 @@ export const Practice = () => {
         <option value={"1"}>male</option>
         <option value={"2"}>female</option>
       </select>
-      ;
     </div>
   );
 };
