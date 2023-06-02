@@ -15,15 +15,16 @@ export const Practice = () => {
         value={title}
         onChange={(event) => {
           setTitle(event.currentTarget.value);
-          <select
-            value={gender}
-            onChange={(event) => setGender(event.currentTarget.value)}
-          >
-            <option value="'1'"></option>
-            <option value="'2'"></option>
-          </select>;
         }}
       />
+      <select
+        value={gender}
+        onChange={(event) => setGender(event.currentTarget.value)}
+      >
+        <option value={"1"}>male</option>
+        <option value={"2"}>female</option>
+      </select>
+      ;
     </div>
   );
 };
